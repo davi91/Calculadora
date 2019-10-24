@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class CalculadoraView extends GridPane {
 
-	public enum eBtLogic {
+	private enum eBtLogic {
 		
 		// Hacemos un "map" de nuestros botones
 		BT_SUM,
@@ -35,7 +35,19 @@ public class CalculadoraView extends GridPane {
 		BT_ERASE 
 	};
 	
-	public Map<eBtLogic, Entry<Integer, String>> logicBtMap = new EnumMap<eBtLogic, Entry<Integer, String>>(eBtLogic.class);
+	private String[] btLogicSymbols = {
+			"+",
+			"-",
+			"*",
+			"/",
+			"=",
+			",",
+			"CE",
+			"C"
+	};
+	
+	// Creamos un Map para que luego nos sea más sencillo acceder a los botones y no tener que poner 8 variables adicionales
+	private Map<eBtLogic, Entry<Integer, String>> logicBtMap = new EnumMap<eBtLogic, Entry<Integer, String>>(eBtLogic.class);
 	
 	private TextField numberTxt;
 	private Button[] numberBts;
@@ -139,14 +151,10 @@ public class CalculadoraView extends GridPane {
 		// Tenemos cuidado y lo ponemos en orden
 		// 0 -> +
 		// 1 -> -, .......
-		logicBtMap.put(eBtLogic.BT_SUM, new AbstractMap.SimpleEntry<Integer, String>(0, "+"));
-		logicBtMap.put(eBtLogic.BT_MINUS, new AbstractMap.SimpleEntry<Integer, String>(1, "-"));
-		logicBtMap.put(eBtLogic.BT_MULTIPLY, new AbstractMap.SimpleEntry<Integer, String>(2, "*"));
-		logicBtMap.put(eBtLogic.BT_DIVIDE, new AbstractMap.SimpleEntry<Integer, String>(3, "/"));
-		logicBtMap.put(eBtLogic.BT_EQUAL, new AbstractMap.SimpleEntry<Integer, String>(4, "="));
-		logicBtMap.put(eBtLogic.BT_COMMA, new AbstractMap.SimpleEntry<Integer, String>(5, ","));
-		logicBtMap.put(eBtLogic.BT_ERASEALL, new AbstractMap.SimpleEntry<Integer, String>(6, "CE"));
-		logicBtMap.put(eBtLogic.BT_ERASE, new AbstractMap.SimpleEntry<Integer, String>(7, "C"));
+		int i = 0;
+		for( eBtLogic logic : eBtLogic.values() ) {
+			logicBtMap.put(logic, new AbstractMap.SimpleEntry<Integer,String>(i, btLogicSymbols[i++]));
+		}
 	}
 	
 }
