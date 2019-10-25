@@ -22,9 +22,9 @@ import java.util.ArrayList;
  */
 public class CalculadoraView extends GridPane {
 
-	private enum eBtLogic {
+	public enum eBtLogic {
 		
-		// Hacemos un "map" de nuestros botones
+		// Ordenamos nuestros botones por orden
 		BT_SUM,
 		BT_MINUS, 
 		BT_MULTIPLY,
@@ -32,7 +32,11 @@ public class CalculadoraView extends GridPane {
 		BT_EQUAL, 
 		BT_COMMA, 
 		BT_ERASEALL,
-		BT_ERASE 
+		BT_ERASE;
+			
+		public static eBtLogic getKeyByIndex(int index) {
+			return eBtLogic.values()[index];
+		}
 	};
 	
 	private String[] btLogicSymbols = {
@@ -46,9 +50,9 @@ public class CalculadoraView extends GridPane {
 			"C"
 	};
 	
+	
 	// Creamos un Map para que luego nos sea más sencillo acceder a los botones y no tener que poner 8 variables adicionales
 	private Map<eBtLogic, Entry<Integer, String>> logicBtMap = new EnumMap<eBtLogic, Entry<Integer, String>>(eBtLogic.class);
-	
 	private TextField numberTxt;
 	private Button[] numberBts;
 	private ArrayList<Button> logicBts;
@@ -81,13 +85,14 @@ public class CalculadoraView extends GridPane {
 		logicBtMap.forEach((key, value) -> {
 			Button bt = new Button(value.getValue());
 			bt.setMaxWidth(Double.MAX_VALUE);  // Ajustamos para que ocupen todo el espacio posible
-			bt.setMaxHeight(Double.MAX_VALUE);
+			bt.setMaxHeight(Double.MAX_VALUE);;
 			GridPane.setHgrow(bt, Priority.ALWAYS);
 			GridPane.setFillWidth(bt, true);
 			GridPane.setVgrow(bt, Priority.ALWAYS);
 			GridPane.setFillHeight(bt, true);
 			
 			logicBts.add(bt);
+			
 		});
 	
 		
@@ -147,10 +152,7 @@ public class CalculadoraView extends GridPane {
 
 
 	private void initMaps() {
-		
-		// Tenemos cuidado y lo ponemos en orden
-		// 0 -> +
-		// 1 -> -, .......
+
 		int i = 0;
 		for( eBtLogic logic : eBtLogic.values() ) {
 			logicBtMap.put(logic, new AbstractMap.SimpleEntry<Integer,String>(i, btLogicSymbols[i++]));
