@@ -1,7 +1,7 @@
 package dad.javafx.utils;
 
 /**
- * Implementaci�n de la l�gica de una calculadora.
+ * Implementación de lógica de una calculadora.
  * @author Fran Vargas
  */
 public class Calculadora {
